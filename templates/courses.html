@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+   
+  
+   <title>courses</title>
+  
+
+   
+   <!-- font awesome cdn link  -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" crossorigin="anonymous">
+
+   <!-- custom css file link  -->
+   <link rel="stylesheet" href="/static/css/style.css">
+
+</head>
+
+<body>
+
+
+   {% include 'header.html' %}
+
+   <section class="courses">
+
+      {% if to|length > 0 %}
+      <h3 style="color:red" align="center">{{u}}</h3>
+      <h1 class="heading">My subscriptions</h1>
+      {% else %}
+      <h1 class="heading">All courses</h1>
+      {% endif %}
+
+      
+
+   {% if name|length > 0 %}
+      {% if res|length > 0  %}
+   <div class="box-container">
+         {% for l in res %}
+         <div class="box">
+            <div class="tutor">
+               <!-- <img src="data:image/jpg;base64,{{l['img']}}" alt=""> -->
+               <div class="info">
+                  <h3> {{l['heading']}}</h3>
+                  <!-- rgb(254,137,3) -->
+                  <span>Progress:{{l['progress']}}</span>
+               </div>
+            </div>
+            <div class="thumb">
+               <img src="data:image/jpg;base64,{{ l['img'] }}" alt="">
+               <span>Total Tests : {{l['tests']}}</span>
+            </div>
+            <h3 class="title">{{l['name']}} </h3>
+            <!-- progress bar -->
+            <!-- bg-success -->
+            <span>Progress Bar:</span>
+            <div class="progress">
+               <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                  aria-valuenow="100%" aria-valuemin="0" aria-valuemax="100" style="width: {{ l['prog_bar'] }} %; "> {{ l['prog_bar'] }} %
+               </div>
+            </div>
+            {% if to|length > 0 %}
+            <a href="/start/ {{ l[c_id] }}" class="inline-btn">Start</a>
+            <a href="/unenroll/{{ l['c_id'] }}" onclick="return confirm('You really want to UnEnroll {{ l['name'] }} ?');" class="delete-btn">Unenroll Now</a>
+            {% else %}
+            <a href="/enroll/{{ l['c_id'] }}" class="inline-btn">Enroll</a>
+            {% endif %}
+         </div>
+         {% endfor %}
+
+
+         <div class="more-btn">
+            <a href="/contact" class=""></a>
+         </div>
+         
+      </div>
+
+      <div class="more-btn">
+         <a href="/contact" class="inline-option-btn">Contact Us</a>
+      </div>
+   </section>
+
+   <footer class="footer">
+
+      &copy; copyright @ 2024 by <span>mr. web designer</span> | all rights reserved!
+
+   </footer>
+
+
+   <!-- boxes end  -->
+
+   <!-- if no res i.e no courses -->
+   {% else %}
+   <h3 style="color:red" align="center">Nothing to Show </h3>
+         <div class="more-btn">
+            <a href="/courses" class="inline-option-btn">Enroll from Courses</a>
+         </div>
+   </section>
+
+   
+   <footer class="footer" style="position: fixed;">
+
+      &copy; copyright @ 2024 by <span>mr. web designer</span> | all rights reserved!
+
+   </footer>
+
+   {% endif %}
+
+   <!-- if name is not in session -->
+   {% else %}
+   <h3 style="color:red" align="center">Login Required to access courses</h3>
+         <div class="more-btn">
+            <a href="/login" class="inline-option-btn">Login Now</a>
+         </div>
+   </section>
+
+
+   
+   <footer class="footer" style="position: fixed;">
+
+      &copy; copyright @ 2024 by <span>mr. web designer</span> | all rights reserved!
+
+   </footer>
+   {% endif %}
+
+         
+
+         <!-- custom js file link  -->
+         <script src="/static/js/script.js"></script>
+         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            crossorigin="anonymous"></script>
+
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
