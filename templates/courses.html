@@ -29,10 +29,14 @@
 
    <section class="courses">
 
-      {% if to|length > 0 %}
+      {% if to=='mysub'  %}
       <h3 style="color:red" align="center">{{u}}</h3>
       <h1 class="heading">My subscriptions</h1>
+      {% elif to=='mycou' %}
+      <h3 style="color:red" align="center">Here You Will See only courses which not Enrolled</h3>
+      <h1 class="heading">All courses</h1>
       {% else %}
+      <h3 style="color:red" align="center">Here You Will See only courses which you created earlier</h3>
       <h1 class="heading">All courses</h1>
       {% endif %}
 
@@ -59,14 +63,16 @@
             <!-- progress bar -->
             <!-- bg-success -->
             <span>Progress Bar:</span>
+
             <div class="progress">
-               <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                  aria-valuenow="100%" aria-valuemin="0" aria-valuemax="100" style="width: {{ l['prog_bar'] }} %; "> {{ l['prog_bar'] }} %
-               </div>
-            </div>
-            {% if to|length > 0 %}
-            <a href="/start/ {{ l[c_id] }}" class="inline-btn">Start</a>
+               <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: {{l['prog_bar']}}%">{{l['prog_bar']}}</div>
+             </div>
+         
+            {% if to=='mysub' %}
+            <a href="/start/{{ l['c_id'] }}" class="inline-btn">Start</a>
             <a href="/unenroll/{{ l['c_id'] }}" onclick="return confirm('You really want to UnEnroll {{ l['name'] }} ?');" class="delete-btn">Unenroll Now</a>
+            {% elif to=='delcou' %}
+            <a href="/deletef/{{ l['c_id'] }}" onclick="return confirm('You really want to Delete {{ l['name'] }} ?'); It deletes all progress " class="delete-btn">Delete Now</a>
             {% else %}
             <a href="/enroll/{{ l['c_id'] }}" class="inline-btn">Enroll</a>
             {% endif %}
@@ -96,12 +102,14 @@
 
    <!-- if no res i.e no courses -->
    {% else %}
+
+   {% if to=='mysub' %}
    <h3 style="color:red" align="center">Nothing to Show </h3>
          <div class="more-btn">
             <a href="/courses" class="inline-option-btn">Enroll from Courses</a>
          </div>
    </section>
-
+{% endif %}
    
    <footer class="footer" style="position: fixed;">
 

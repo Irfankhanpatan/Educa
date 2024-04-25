@@ -17,10 +17,13 @@
    
    {% include 'header.html' %}
 
-<section class="form-container">
 
+   
+   {% if to=="course" and name|length > 0 %}
+   <h3 style="color:red" align="center">Please Create Module Before Course </h3>
+<section class="form-container">
    <form action="/uploadf" method="post" enctype="multipart/form-data">
-      <h3>Upload now</h3>
+      <h3>Upload Course Details</h3>
     
       <p> Playlist Heading <span>*</span></p>
       <input type="text" name="hea" placeholder="enter heading" required maxlength="50" class="box">
@@ -36,8 +39,39 @@
      
       <p>select thumnail <span>*</span></p>
       <input type="file" name="image" accept="image/*" required class="box"> 
+ 
+      <p>Add Module <span>*</span></p>
+      <select name="mod" id="cars" required>
+         {% for i in mod %}
+         <option value="{{ i[0] }}">{{ i[0] }}</option>
+         {% endfor %}
+       </select>
+   
+      <p style="color:red" align="center">{{u}}</p>
+      <input type="submit" value="Upload Now" name="submit" class="btn">
+   </form>
 
+</section>
+
+{% elif to=='module' and name|length > 0 %}
+
+
+<section class="form-container">
+
+   <form action="/uploadmf" method="post" enctype="multipart/form-data">
+      <h3>Upload Module Details</h3>
+    
+      <p> Module Heading <span>*</span></p>
+      <input type="text" name="hea" placeholder="enter heading" required maxlength="50" class="box">
       
+      <p> Upload Document Page <span>*</span></p>
+      <input type="file" id="htmlFile" name="page" required accept="">
+
+      <p> Upload Exam Page <span>*</span></p>
+      <input type="file" id="htmlFile" name="exam" required accept="">    
+     
+      <p>  Reference Link<span>*</span></p>
+      <textarea name="reference" placeholder="Enter reference link in text format" required maxlength="500" class="box"></textarea>
       
       <p style="color:red" align="center">{{u}}</p>
       <input type="submit" value="Upload Now" name="submit" class="btn">
@@ -45,6 +79,15 @@
 
 </section>
 
+{% else %}
+<h2 style="color:red" align="center">Login Required for Upload Access</h2> 
+<section class="form-container">
+
+<div class="more-btn">
+   <a href="/login" class="inline-option-btn">Login Now</a>
+</div>
+</section>
+{% endif %}
 
 
 

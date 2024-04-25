@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    *, *::before, *::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --hue-neutral: 200;
+  --hue-wrong: 0;
+  --hue-correct: 145;
+}
+
+body {
+  --hue: var(--hue-neutral);
+  padding: 0;
+  margin: 0;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background-color: hsl(var(--hue), 100%, 20%);
+}
+
+body.correct {
+  --hue: var(--hue-correct);
+}
+
+body.wrong {
+  --hue: var(--hue-wrong);
+}
+
+.container {
+  width: 800px;
+  max-width: 80%;
+  background-color: white;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 0 10px 2px;
+}
+
+.btn-grid {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.btn {
+  --hue: var(--hue-neutral);
+  border: 1px solid hsl(var(--hue), 100%, 30%);
+  background-color: hsl(var(--hue), 100%, 50%);
+  border-radius: 5px;
+  padding: 5px 10px;
+  color: white;
+  outline: none;
+}
+
+.btn:hover {
+  border-color: black;
+}
+
+.btn.correct {
+  --hue: var(--hue-correct);
+  color: black;
+}
+
+.btn.wrong {
+  --hue: var(--hue-wrong);
+}
+
+.start-btn, .next-btn {
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 10px 20px;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hide {
+  display: none;
+}
+
+
+
+
+
+
+
+
+
+
+/* Background Styles Only */
+
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+
+html {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #DFDFDF;
+}
+
+.side-links {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.side-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  margin-bottom: 10px;
+  color: white;
+  width: 180px;
+  padding: 10px 0;
+  border-radius: 10px;
+}
+
+.side-link-youtube {
+  background-color: red;
+}
+
+.side-link-twitter {
+  background-color: #1DA1F2;
+}
+
+.side-link-github {
+  background-color: #6e5494;
+}
+
+.side-link-text {
+  margin-left: 10px;
+  font-size: 18px;
+}
+
+.side-link-icon {
+  color: white;
+  font-size: 30px;
+}
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div id="question-container" class="hide">
+      <div id="question">Question</div>
+      <div id="answer-buttons" class="btn-grid">
+        <button class="btn">Answer 1</button>
+        <button class="btn">Answer 2</button>
+        <button class="btn">Answer 3</button>
+        <button class="btn">Answer 4</button>
+      </div>
+    </div>
+    <div class="controls">
+      <button id="start-btn" class="start-btn btn">Start</button>
+      <button id="next-btn" class="next-btn btn hide">Next</button>
+    </div>
+  </div>
+        
+       
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <!-- Side Links Only -->
+        <div class="side-links">
+          <a href="#" target="_blank" class="side-link side-link-youtube">
+            <i class="fab fa-youtube-square side-link-icon"></i>
+            <span class="side-link-text">View Tutorial</span>
+          </a>
+          <a href="#" target="_blank" class="side-link side-link-github side-link-icon">
+            <i class="fab fa-github-square"></i>
+            <span class="side-link-text">View GitHub</span>
+          </a>
+          <a href="#" target="_blank" class="side-link side-link-twitter">
+            <i class="fab fa-twitter-square side-link-icon"></i>
+            <span class="side-link-text">View Twitter</span>
+          </a>
+        </div>
+
+        <script>
+          const startButton = document.getElementById('start-btn')
+const nextButton = document.getElementById('next-btn')
+const questionContainerElement = document.getElementById('question-container')
+const questionElement = document.getElementById('question')
+const answerButtonsElement = document.getElementById('answer-buttons')
+
+let shuffledQuestions, currentQuestionIndex
+
+startButton.addEventListener('click', startGame)
+nextButton.addEventListener('click', () => {
+  currentQuestionIndex++
+  setNextQuestion()
+})
+
+function startGame() {
+  startButton.classList.add('hide')
+  shuffledQuestions = questions.sort(() => Math.random() - .5)
+  currentQuestionIndex = 0
+  questionContainerElement.classList.remove('hide')
+  setNextQuestion()
+}
+
+function setNextQuestion() {
+  resetState()
+  showQuestion(shuffledQuestions[currentQuestionIndex])
+}
+
+function showQuestion(question) {
+  questionElement.innerText = question.question
+  question.answers.forEach(answer => {
+    const button = document.createElement('button')
+    button.innerText = answer.text
+    button.classList.add('btn')
+    if (answer.correct) {
+      button.dataset.correct = answer.correct
+    }
+    button.addEventListener('click', selectAnswer)
+    answerButtonsElement.appendChild(button)
+  })
+}
+
+function resetState() {
+  clearStatusClass(document.body)
+  nextButton.classList.add('hide')
+  while (answerButtonsElement.firstChild) {
+    answerButtonsElement.removeChild(answerButtonsElement.firstChild)
+  }
+}
+
+function selectAnswer(e) {
+  const selectedButton = e.target
+  const correct = selectedButton.dataset.correct
+  setStatusClass(document.body, correct)
+  Array.from(answerButtonsElement.children).forEach(button => {
+    setStatusClass(button, button.dataset.correct)
+  })
+  
+  if (shuffledQuestions.length > currentQuestionIndex + 1) {
+    nextButton.classList.remove('hide')
+  } else {
+    startButton.innerText = 'Restart'
+    startButton.classList.remove('hide')
+  }
+}
+
+function setStatusClass(element, correct) {
+  clearStatusClass(element)
+  if (correct) {
+    element.classList.add('correct')
+  } else {
+    element.classList.add('wrong')
+  }
+}
+
+function clearStatusClass(element) {
+  element.classList.remove('correct')
+  element.classList.remove('wrong')
+}
+
+
+const questions = [
+{
+        question: 'What is a finite automaton?',
+        answers: [
+            { text: 'A machine that can perform a finite number of operations', correct: false },
+            { text: 'A mathematical model of computation consisting of states, transitions, and an input alphabet', correct: true },
+            { text: 'A machine that can recognize regular expressions', correct: false },
+            { text: 'A machine that can handle an infinite number of states', correct: false }
+        ]
+    },
+    {
+        question: 'What is the difference between a DFA and an NFA?',
+        answers: [
+            { text: 'A DFA can recognize more languages than an NFA', correct: false },
+            { text: 'An NFA has a more complex transition function than a DFA', correct: false },
+            { text: 'In a DFA, each input symbol uniquely determines the next state, while in an NFA, there can be multiple possible next states for a given input symbol and current state', correct: true },
+            { text: 'A DFA is more expressive than an NFA', correct: false }
+        ]
+    },
+    {
+        question: 'What is the transition function of a finite automaton?',
+        answers: [
+            { text: 'A function that defines the input alphabet of the automaton', correct: false },
+            { text: 'A function that maps each state and input symbol to a unique next state', correct: true },
+            { text: 'A function that determines whether the automaton accepts a given input string', correct: false },
+            { text: 'A function that determines the number of states in the automaton', correct: false }
+        ]
+    },
+    {
+        question: 'What is the language recognized by a finite automaton?',
+        answers: [
+            { text: 'The set of all possible input strings', correct: false },
+            { text: 'The set of all strings accepted by the automaton', correct: true },
+            { text: 'The set of all regular expressions that describe the automaton', correct: false },
+            { text: 'The set of all states in the automaton', correct: false }
+        ]
+    },
+    {
+        question: 'What is the difference between an accepting state and a non-accepting state?',
+        answers: [
+            { text: 'An accepting state is the initial state of the automaton, while a non-accepting state is any other state', correct: false },
+            { text: 'An accepting state is a state from which the automaton cannot transition, while a non-accepting state is a state from which the automaton can transition', correct: false },
+            { text: 'An accepting state is a state that, when reached, signifies that the input string has been accepted by the automaton, while a non-accepting state does not signify acceptance', correct: true },
+            { text: 'There is no difference between an accepting state and a non-accepting state', correct: false }
+        ]
+    },
+    {
+        question: 'What is the difference between a deterministic finite automaton (DFA) and a nondeterministic finite automaton (NFA)?',
+        answers: [
+            { text: 'A DFA can have multiple possible next states for a given input symbol and current state, while an NFA has a unique next state for each input symbol and current state', correct: false },
+            { text: 'A DFA can recognize more languages than an NFA', correct: false },
+            { text: 'A DFA has a fixed number of states, while an NFA can have a variable number of states', correct: false },
+            { text: 'In a DFA, each input symbol uniquely determines the next state, while in an NFA, there can be multiple possible next states for a given input symbol and current state', correct: true }
+        ]
+    },
+    {
+        question: 'What is the role of epsilon transitions in a finite automaton?',
+        answers: [
+            { text: 'Epsilon transitions allow the automaton to transition to any state randomly', correct: false },
+            { text: 'Epsilon transitions represent transitions that occur without consuming any input symbol', correct: true },
+            { text: 'Epsilon transitions represent transitions that are triggered by the absence of input symbols', correct: false },
+            { text: 'Epsilon transitions represent transitions that occur only when the automaton is in the initial state', correct: false }
+        ]
+    },
+    {
+        question: 'What is the empty string in the context of finite automata?',
+        answers: [
+            { text: 'A string that contains no characters', correct: true },
+            { text: 'A string that contains only whitespace characters', correct: false },
+            { text: 'A string that contains a single whitespace character', correct: false },
+            { text: 'A string that contains the null character', correct: false }
+        ]
+    },
+    {
+        question: 'What is the purpose of a state transition diagram in the study of finite automata?',
+        answers: [
+            { text: 'To represent the input alphabet of the automaton', correct: false },
+            { text: 'To visually depict the states, transitions, and accepting states of the automaton', correct: true },
+            { text: 'To represent the transition function of the automaton', correct: false },
+            { text: 'To represent the set of all strings accepted by the automaton', correct: false }
+        ]
+    },
+    {
+        question: 'What is the significance of the start state in a finite automaton?',
+        answers: [
+            { text: 'The start state is the only state from which the automaton can transition', correct: false },
+            { text: 'The start state is the state that signifies acceptance of the input string', correct: false },
+            { text: 'The start state is the state from which the automaton begins processing the input string', correct: true },
+            { text: 'The start state is the state that signifies rejection of the input string', correct: false }
+        ]
+    }
+
+]
+        </script>
+</body>
+</html>

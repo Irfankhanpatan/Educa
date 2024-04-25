@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap');
+:root {
+    margin: 0;
+    padding: 0;
+    font-size: 10px;
+    font-family: 'Source Sans Pro', sans-serif;
+    scroll-behavior: smooth;
+}
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #141616;
+    font-size: 1.6rem;
+    color: #fafafa;
+}
+.container {
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+}
+
+@media(max-width:700px) {
+    .container {
+        flex-flow: column wrap;
+    }
+}
+#navbar {
+    background-color: #212129;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    padding: 2rem 1rem;
+    padding-bottom: 5rem;
+    border-radius: 0.4rem;
+    position: sticky;
+    top: 0;
+    left: 0;
+    flex: 1;
+    height: 68rem;
+    min-width: min-content;
+    transition: all 0.2s ease-in-out;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+#navbar::-webkit-scrollbar {
+    width: 0.7rem;
+}
+
+#navbar::-webkit-scrollbar-track {
+    background: #1e1e26;
+}
+
+#navbar::-webkit-scrollbar-thumb {
+    background: #393942;
+    border-radius: 0.4rem;
+}
+
+#navbar::-webkit-scrollbar-thumb:hover {
+    background: #5a3d5c;
+}
+
+@media(max-width:700px) {
+    #navbar {
+        height: max-content;
+        overflow-y: hidden;
+        position: static;
+        padding: 0 2rem;
+    }
+}
+
+#navbar header {
+    font-size: 4rem;
+    padding: 2rem 1rem;
+    font-weight: 600;
+    color: #fafafa;
+}
+@media(max-width:700px){
+  #navbar header{
+    padding: 2rem 0;
+  }
+}
+#navbar h1{
+    margin: 0;
+    font-size: 4rem;
+    font-weight: 600;
+    padding: 0;
+    display: inline-block;
+}
+#menu-lbl {
+    display: none;
+    font-size: 2.5rem;
+    font-weight: 400;
+    float: right;
+    width: 3rem;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    box-sizing: content-box;
+    margin-top: 0.5rem;
+    border-radius: 0.4rem;
+    transition: all 0.2s ease-in-out;
+}
+
+#menu-lbl img {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+}
+
+#menu-lbl:hover {
+    box-shadow: 0 0 5px #f638dc;
+}
+
+#menu-lbl:active {
+    background-color: #5a3d5c;
+    color: #1e1e26;
+}
+
+@media(max-width:700px) {
+    #menu-lbl {
+        display: block;
+    }
+}
+.nav-link {
+    display: block;
+    font-size: 1.6rem;
+    line-height: 1.2;
+    padding: 1rem;
+    transition: border-width 0.2s ease-in-out;
+    text-decoration: none;
+    cursor: pointer;
+    color: #bbe1fa;
+}
+.nav-link:hover {
+    background-color: #131418;
+    border-left: 0.4rem solid #f638dc;
+    border-radius: 0.4rem;
+    color: #fafafa;
+    padding-left: 0.6rem;
+}
+
+@media(max-width:700px) {
+    #nav-links {
+        display: none;
+    }
+}
+input[type=checkbox] {
+    display: none;
+}
+input[type=checkbox]:checked~#nav-links {
+    display: block;
+}
+#main-doc {
+    flex: 3;
+    padding: 1rem 2rem;
+}
+@media(max-width:700px){
+  #main-doc{
+    padding: 0;
+  }
+}
+.main-section {
+    border: 0.2rem solid #2f5869;
+    border-style: solid none;
+    padding: 4rem 3rem;
+    line-height: 1.3;
+}
+@media(max-width:700px){
+  .main-section{
+    padding: 4rem 2rem;
+  }
+}
+.main-section h2 {
+    font-size: 3.5rem;
+    color: #fafafa;
+    font-weight: 400;
+}
+
+.main-section>p,
+.main-section>ul,
+.main-section>img,
+.note {
+    font-size: 1.8rem;
+    max-width: 65rem;
+    width: auto;
+}
+
+@media(max-width:960px) {
+
+    .main-section>p,
+    .main-section>ul,
+    .main-section>img,
+    .main-section>pre,
+    .note {
+        max-width: 100%;
+        font-size: 1.6rem;
+    }
+}
+
+.main-section li {
+    padding: 0.5rem 0;
+}
+
+.main-section a,
+.main-section code {
+    text-decoration: none;
+    color: #bbe1fa;
+}
+
+.main-section a:hover {
+    text-decoration: underline;
+}
+
+.main-section code {
+    background-color: #5a3d5c;
+}
+
+.code-snip {
+    background-color: #393846;
+    font-family: 'Courier New', Courier, monospace;
+    border-radius: 0.4rem;
+    border-left: 0.4rem solid #f638dc;
+    line-height: 1.5;
+    white-space: pre-line;
+    width: auto;
+    max-width: 65rem;
+    margin: 2rem 0;
+    padding: 0 3rem 2rem 3rem;
+}
+@media(max-width:700px){
+  .code-snip{
+    padding: 0 1rem 2rem 1rem;
+  }
+}
+
+.token {
+    color: #7bb9e2;
+}
+
+.selector {
+    color: rgb(215, 157, 75);
+}
+
+.property {
+    color: rgb(156, 220, 240);
+    padding-left: 3rem;
+}
+@media(max-width:700px){
+  .property {
+    padding-left: 1rem;
+  }
+}
+
+.note {
+    background-color: #3d2c00;
+    border-radius: 0.4rem;
+    border-left: 0.4rem solid #f7b73c;
+    padding: 0.5rem 3rem;
+}
+footer{
+    text-align: center;
+    padding: 1rem;
+    background-color: #5a3d5c;
+}
+footer a{
+    color: #7bb9e2;
+    text-decoration: none;
+}
+footer a:hover{
+    color: #f638dc;
+}
+    </style>
+    <script>
+        
+    </script>
+</head>
+
+<body>
+
+    
+    <div class="container">
+        <nav id="navbar">
+            <input type="checkbox" id="menu">
+            <header>
+                <h1>Finite Automata</h1> <label for="menu" onclick id="menu-lbl"><img src="https://i.ibb.co/XpYhKhB/menu.png"
+                        alt=""></label>
+            </header>
+            <div id="nav-links">
+
+                <a class="nav-link" href="#Understanding_Finite_Automata">Understanding Finite Automata</a>
+
+                <a class="nav-link" href="#Basic_Components_of_Finite_Automata">Basic Components of Finite Automata</a>
+                <a class="nav-link" href="#Formal_Definition_and_Terminology">Formal Definition and Terminology</a>
+                <a class="nav-link" href="#Types_of_Finite_Automata">Types of Finite Automata</a>
+                <a class="nav-link" href="#Applications_and_Importance">Applications and Importance</a>
+                <a class="nav-link" href="#Historical_Overview">Historical Overview</a>
+                <a class="nav-link" href="#Key_Concepts_and_Definitions">Key Concepts and Definitions</a>
+                <a class="nav-link" href="#Limitations_and_Scope">Limitations and Scope</a>
+                <a class="nav-link" href="#Future_Directions_in_Automata_Theory">Future Directions in Automata Theory</a>
+                <a class="nav-link" href="#Resources_for_Further_Learning">Resources for Further Learning </a>
+            </div>
+        </nav>
+        <main id="main-doc">
+            <section class="main-section" id="Understanding_Finite_Automata">
+                <header>
+                    <h2>Understanding Finite Automata</h2>
+                </header>
+                <p>
+                    Finite Automata, often abbreviated as FA, are abstract machines used in computer science and
+                    mathematics to model and analyze processes that involve discrete states and transitions between
+                    these states. They are particularly useful in fields such as formal language theory, compiler
+                    design, and digital circuit design.
+                </p>
+                <p>
+                    Finite Automata have various applications, including lexical analysis in compilers, pattern matching
+                    in string processing algorithms, and modeling sequential logic circuits in digital electronics.
+                    Their simplicity and efficiency make them a fundamental concept in theoretical computer science.
+                </p>
+                <ul>
+                    <li>Understanding the basic components of a Finite Automaton: States, Transitions, Alphabet, and
+                        Accepting States.</li>
+                    <li>Exploring different types of Finite Automata, such as Deterministic Finite Automata (DFA) and
+                        Non-deterministic Finite Automata (NFA).</li>
+                    <li>Studying the relationship between regular languages and Finite Automata through the concept of
+                        language recognition.</li>
+                </ul>
+                <p>As you delve deeper into Finite Automata, you'll gain insights into their role in solving
+                    computational problems and their significance in theoretical computer science.</p>
+                <div class="note">
+                    <p><strong>Prerequisites:</strong> Basic understanding of formal languages and automata theory,
+                        familiarity with mathematical concepts like sets and functions.</p>
+                </div>
+            </section>
+            <!--  -->
+            <section class="main-section" id="Basic_Components_of_Finite_Automata">
+                <header>
+                    <h2>Basic Components of Finite Automata</h2>
+                </header>
+                <p>Finite automata consist of fundamental components that define their structure and behavior. These
+                    components include:</p>
+                <ul>
+                    <li>States: Represent different conditions or situations that the automaton can be in.</li>
+                    <li>Transitions: Define the movement from one state to another based on input symbols.</li>
+                    <li>Alphabet: Set of symbols that are accepted as input by the automaton.</li>
+                    <li>Initial State: Starting point of the automaton's operation.</li>
+                    <li>Accepting States: States that signify the successful completion of a sequence of transitions.
+                    </li>
+                </ul>
+                <p>Understanding these basic components is crucial for grasping the functionality and capabilities of
+                    finite automata.</p>
+            </section>
+            <!--  -->
+            <section class="main-section" id="Formal_Definition_and_Terminology">
+                <header>
+                    <h2>Formal Definition and Terminology</h2>
+                </header>
+                <p>Finite automata are formally defined mathematical models used to represent and analyze systems with
+                    finite states and transitions between those states. This formalism is essential in various fields,
+                    including computer science, mathematics, and engineering. The terminology associated with finite
+                    automata includes:</p>
+                <ul>
+                    <li>States: Represent different conditions or configurations of the system.</li>
+                    <li>Alphabet: Set of symbols or inputs accepted by the automaton.</li>
+                    <li>Transitions: Define the movement from one state to another based on input symbols.</li>
+                    <li>Initial State: Starting point of the automaton's operation.</li>
+                    <li>Accepting States: States that signify the successful completion of a sequence of transitions.
+                    </li>
+                </ul>
+                <p>Understanding the formal definition and terminology of finite automata is fundamental for their
+                    application and analysis in various problem-solving scenarios.</p>
+            </section>
+            <!--  -->
+            <section class="main-section" id="Types_of_Finite_Automata">
+                <header>
+                    <h2>Types of Finite Automata</h2>
+                </header>
+                <p>Finite automata can be classified into various types based on their properties and capabilities. Some
+                    of the commonly encountered types include:</p>
+                <ul>
+                    <li>Deterministic Finite Automata (DFA)</li>
+                    <li>Non-Deterministic Finite Automata (NFA)</li>
+                    <li>Finite State Machines (FSM)</li>
+                    <li>Mealy Machines</li>
+                    <li>Moore Machines</li>
+                    <li>Pushdown Automata (PDA)</li>
+                    <li>Turing Machines</li>
+                </ul>
+                <p>Each type of finite automaton has its unique characteristics and is suitable for different
+                    applications and problem-solving scenarios. Understanding the types of finite automata is crucial
+                    for effectively modeling and analyzing systems in various fields.</p>
+            </section>
+            <!--  -->
+            <section class="main-section" id="Applications_and_Importance">
+                <header>
+                    <h2>Applications and Importance</h2>
+                </header>
+                <p>Finite automata have widespread applications in diverse domains, owing to their simplicity and
+                    efficiency in problem-solving. Some notable applications and the importance of finite automata
+                    include:</p>
+                <p>String processing and pattern matching algorithms: Finite automata are extensively used in text
+                    processing applications, such as searching for patterns in strings and parsing.</p>
+                <p>Lexical analysis in compilers: Finite automata are employed in lexical analysis phases of compilers
+                    to recognize and tokenize source code.</p>
+                <p>Design and analysis of digital circuits: Finite automata play a crucial role in designing and
+                    optimizing digital circuits, particularly in sequential logic design.</p>
+                <p>Network protocols and communication systems: Finite automata are utilized in modeling and analyzing
+                    network protocols, routing algorithms, and communication systems.</p>
+                <p>Formal language theory and natural language processing: Finite automata are central to formal
+                    language theory, which underpins natural language processing tasks such as syntax analysis and
+                    parsing.</p>
+                <p>Verification and validation of software systems: Finite automata are employed in formal methods for
+                    verifying and validating software systems, ensuring their correctness and reliability.</p>
+                <p>Artificial intelligence and machine learning algorithms: Finite automata serve as fundamental
+                    components in various AI and machine learning algorithms, including pattern recognition and
+                    decision-making systems.</p>
+                <p>Robotics and automation systems: Finite automata are applied in modeling robot behaviors and control
+                    systems for automation tasks in robotics and industrial automation.</p>
+                <p>Bioinformatics and DNA sequence analysis: Finite automata are utilized in analyzing DNA sequences,
+                    genome assembly, and bioinformatics algorithms for biological data processing.</p>
+                <p>Cryptographic algorithms and security protocols: Finite automata are used in cryptographic algorithms
+                    and security protocols for designing secure communication systems and encryption techniques.</p>
+                <p>Understanding finite automata is essential for students and professionals in computer science,
+                    mathematics, and related fields, as they form the basis for solving computational problems and
+                    designing efficient algorithms.</p>
+            </section>
+            <!--  -->
+            <section class="main-section" id="Historical_Overview">
+                <header>
+                    <h2>Historical Overview</h2>
+                </header>
+                <p>The study of finite automata has a rich historical background, dating back to the early 20th century.
+                    The concept of automata theory emerged from the works of mathematicians such as David Hilbert, Alan
+                    Turing, and Alonzo Church, who laid the foundation for understanding computational processes and
+                    formal languages.</p>
+                <p>In the 1930s and 1940s, Alan Turing and Alonzo Church independently introduced the concept of a
+                    theoretical model of computation, known as the Turing machine and lambda calculus, respectively.
+                    These theoretical constructs provided a framework for understanding the fundamental principles of
+                    computation and inspired the development of finite automata.</p>
+                <p>In 1943, Warren McCulloch and Walter Pitts introduced the first mathematical model of a neural
+                    network, which was based on the concept of finite automata. This model, known as the McCulloch-Pitts
+                    neuron, laid the groundwork for the development of artificial intelligence and computational
+                    neuroscience.</p>
+                <p>During the 1950s and 1960s, the field of automata theory experienced significant growth, with
+                    researchers such as John von Neumann, John Backus, and Noam Chomsky making significant
+                    contributions. John von Neumann's work on cellular automata and self-replicating machines, along
+                    with Noam Chomsky's hierarchy of formal languages, further expanded the theoretical underpinnings of
+                    automata theory.</p>
+                <p>In the following decades, automata theory found applications in various fields, including computer
+                    science, linguistics, and artificial intelligence. The development of finite automata paved the way
+                    for the design and analysis of algorithms, formal verification techniques, and the development of
+                    programming languages and compilers.</p>
+                <p>Today, automata theory continues to be a fundamental area of study in computer science and related
+                    disciplines, with ongoing research contributing to advancements in areas such as machine learning,
+                    natural language processing, and robotics.</p>
+            </section>
+            <!--  -->
+            <section class="main-section" id="Key_Concepts_and_Definitions">
+                <header>
+                    <h2>Key Concepts and Definitions</h2>
+                </header>
+                <p>Finite automata are mathematical models used to study and analyze computational processes.
+                    Understanding key concepts and definitions is essential for grasping the fundamentals of finite
+                    automata theory:</p>
+                <ul>
+                    <li><strong>Finite Automaton:</strong> A finite automaton is a mathematical abstraction consisting
+                        of a finite set of states, a set of input symbols, a transition function that maps states and
+                        input symbols to other states, an initial state, and a set of accepting states.</li>
+                    <li><strong>State:</strong> States represent different configurations or conditions of the automaton
+                        during its operation. The automaton transitions from one state to another based on the input it
+                        receives and the transition function.</li>
+                    <li><strong>Input Alphabet:</strong> The input alphabet is the set of symbols that the automaton can
+                        read or process. These symbols are typically denoted as letters from a finite alphabet.</li>
+                    <li><strong>Transition Function:</strong> The transition function defines the behavior of the
+                        automaton by specifying the next state based on the current state and the input symbol read. It
+                        is usually represented as a mapping from state-input pairs to states.</li>
+                    <li><strong>Initial State:</strong> The initial state is the starting state of the automaton. It is
+                        the state from which the automaton begins its operation when given an input string.</li>
+                    <li><strong>Accepting State:</strong> Accepting states, also known as final states or halting
+                        states, are states in which the automaton can halt and accept the input string. The presence of
+                        the automaton in an accepting state indicates that the input string is accepted by the
+                        automaton.</li>
+                    <li><strong>Transition Diagram:</strong> A transition diagram, also called a state diagram or state
+                        transition diagram, visually represents the states, transitions, and input symbols of a finite
+                        automaton. It provides a graphical depiction of the automaton's behavior.</li>
+                    <li><strong>Deterministic Finite Automaton (DFA):</strong> A deterministic finite automaton is a
+                        type of finite automaton where each state has exactly one transition for each input symbol. DFAs
+                        are characterized by their deterministic behavior, meaning that for any given input, there is
+                        only one possible next state.</li>
+                    <li><strong>Non-Deterministic Finite Automaton (NFA):</strong> A non-deterministic finite automaton
+                        is a type of finite automaton where one or more transitions may be possible for a given input
+                        symbol and current state. NFAs offer greater flexibility in modeling certain types of languages
+                        and computations compared to DFAs.</li>
+                </ul>
+            </section>
+            <!--  -->
+            <section class="main-section" id="Limitations_and_Scope">
+                <header>
+                    <h2>Limitations and Scope</h2>
+                </header>
+                <p>While finite automata provide valuable insights into the theory of computation and are widely used in
+                    various applications, they also have limitations and a specific scope:</p>
+                <ul>
+                    <li><strong>Finite State:</strong> As the name suggests, finite automata have a finite number of
+                        states, which limits their ability to model complex computational processes.</li>
+                    <li><strong>Determinism:</strong> Traditional finite automata, particularly deterministic finite
+                        automata (DFAs), exhibit deterministic behavior, meaning that the transition from one state to
+                        another is uniquely determined by the current state and input symbol. This deterministic nature
+                        may not accurately capture the behavior of certain systems or languages.</li>
+                    <li><strong>Regular Languages:</strong> Finite automata are primarily used to recognize and generate
+                        regular languages, which are a subset of formal languages with specific properties. They may not
+                        be suitable for handling more complex languages, such as context-free or context-sensitive
+                        languages.</li>
+                    <li><strong>Expressive Power:</strong> While finite automata are powerful tools for understanding
+                        the computational capabilities of simple systems, they may lack the expressive power to capture
+                        the behavior of more sophisticated systems, such as those requiring memory or context.</li>
+                    <li><strong>Scope of Application:</strong> Finite automata are well-suited for tasks such as lexical
+                        analysis, pattern matching, and protocol parsing. However, their scope is limited to problems
+                        that can be effectively modeled using finite state machines.</li>
+                    <li><strong>Algorithmic Efficiency:</strong> The computational complexity of algorithms based on
+                        finite automata can vary depending on factors such as the size of the input alphabet, the number
+                        of states, and the structure of the automaton. In some cases, more efficient algorithms or
+                        models may be required to address specific computational tasks.</li>
+                </ul>
+                <p>Despite these limitations, finite automata remain valuable tools in theoretical computer science,
+                    formal language theory, and practical applications such as compiler design, network protocols, and
+                    natural language processing.</p>
+            </section>
+            <!--  -->
+            <section class="main-section" id="Future_Directions_in_Automata_Theory">
+                <header>
+                    <h2>Future Directions in Automata Theory</h2>
+                </header>
+                <p>Automata theory, a fundamental area of theoretical computer science, continues to evolve, driven by
+                    advancements in various fields and emerging trends. Some potential future directions in automata
+                    theory include:</p>
+                <ul>
+                    <li><strong>Quantum Automata:</strong> Exploring the computational power and properties of quantum
+                        automata, which leverage principles from quantum computing to potentially solve certain problems
+                        more efficiently than classical automata.</li>
+                    <li><strong>Probabilistic Automata:</strong> Investigating the behavior and applications of
+                        probabilistic automata, which introduce randomness into the state transition process and are
+                        particularly relevant for modeling systems with uncertain or stochastic components.</li>
+                    <li><strong>Automata Learning:</strong> Advancing techniques for automata learning, which involve
+                        automatically inferring finite automata or related models from observed data, with applications
+                        in software verification, system identification, and natural language processing.</li>
+                    <li><strong>Dynamic and Adaptable Automata:</strong> Developing automata models that can dynamically
+                        adapt to changes in the environment or input data, allowing for more flexible and responsive
+                        systems in applications such as adaptive systems, online algorithms, and self-adjusting data
+                        structures.</li>
+                    <li><strong>Automata and Artificial Intelligence:</strong> Exploring connections between automata
+                        theory and artificial intelligence, including the integration of automata-based approaches with
+                        machine learning, automated reasoning, and cognitive modeling to address complex computational
+                        tasks and emulate human-like behavior.</li>
+                    <li><strong>Automata and Complex Systems:</strong> Studying the role of automata theory in
+                        understanding and analyzing complex systems, including biological networks, social networks, and
+                        ecological systems, to uncover underlying patterns, dynamics, and emergent behaviors.</li>
+                    <li><strong>Formal Verification:</strong> Advancing formal verification techniques based on automata
+                        theory to ensure the correctness and reliability of software, hardware, and cyber-physical
+                        systems, with applications in safety-critical systems, autonomous vehicles, and cybersecurity.
+                    </li>
+                </ul>
+                <p>These future directions represent exciting avenues for research and innovation in automata theory,
+                    with the potential to impact diverse areas of science, technology, and society.</p>
+            </section>
+            <!--  -->
+            <section class="main-section" id="Resources_for_Further_Learning">
+                <header>
+                    <h2>Resources for Further Learning</h2>
+                </header>
+                <p>For those interested in delving deeper into the study of automata theory, here are some recommended
+                    resources:</p>
+                <ul>
+                    <li><strong>Textbooks:</strong> Explore authoritative textbooks on automata theory, such as:</li>
+                    <ul>
+                        <li>Introduction to the Theory of Computation by Michael Sipser</li>
+                        <li>Automata Theory, Languages, and Computation by John E. Hopcroft, Rajeev Motwani, and Jeffrey
+                            D. Ullman</li>
+                        <li>An Introduction to Formal Languages and Automata by Peter Linz</li>
+                    </ul>
+                    <li><strong>Online Courses:</strong> Enroll in online courses offered by academic institutions or
+                        online learning platforms, covering topics like:</li>
+                    <ul>
+                        <li>Automata Theory on Coursera</li>
+                        <li>Theory of Computation on edX</li>
+                        <li>Formal Languages and Automata Theory on Udemy</li>
+                    </ul>
+                    <li><strong>Research Papers:</strong> Read research papers and articles published in peer-reviewed
+                        journals and conference proceedings, focusing on recent developments and advancements in
+                        automata theory.</li>
+                    <li><strong>Open Educational Resources (OERs):</strong> Access freely available educational
+                        materials, including lecture notes, slides, and video lectures, provided by universities and
+                        educational organizations.</li>
+                    <li><strong>Online Forums and Communities:</strong> Join online forums and communities dedicated to
+                        automata theory and related topics, where you can engage with experts, ask questions, and
+                        participate in discussions.</li>
+                    <li><strong>Programming Projects:</strong> Implement algorithms and constructs related to automata
+                        theory as programming projects, using languages like Python, Java, or C++.</li>
+                </ul>
+                <p>By leveraging these resources, individuals can enhance their understanding of automata theory and its
+                    applications in various fields of computer science and beyond.</p>
+            </section>
+
+            <footer>Created by <a href="/home" target="_blank" rel="noopener noreferrer">Educa.</a></footer>
+        </main>
+    </div>
+
+</body>
+
+</html>

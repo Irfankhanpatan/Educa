@@ -19,7 +19,8 @@
 
 <div class="profile">
     {% if name|length > 0 %}
-
+          
+    <img src="data:image/jpg;base64,{{ img }}" class="image" alt="">
          <h3 class="name">{{name}}</h3>
          <p class="role">{{role}}</p>
          <a href="/profile" class="btn">view profile</a>
@@ -50,6 +51,7 @@
    </div>
 
  <div class="profile">
+   <img src="data:image/jpg;base64,{{ img }}" class="image" alt="">
     {% if name|length > 0 %}
       <h3 class="name">{{name}}</h3>
       <p class="role">{{role}}</p>
@@ -72,9 +74,12 @@
    <nav class="navbar">
       <a href="/home"><i class="fas fa-home"></i><span>home</span></a>
       <a href="/about"><i class="fas fa-question"></i><span>about</span></a>
+      
       <a href="/courses"><i class="fas fa-graduation-cap"></i><span>all courses</span></a>
       <a href="/mysub"><i class="fas fa-graduation-cap"></i><span>my subscriptions</span></a>
-      <a href="/upload"><i class="fas fa-chalkboard-user"></i><span>Upload</span></a>
+      <a href="/upload"><i class="fas fa-chalkboard-user"></i><span>create course</span></a>
+      <a href="/uploadm"><i class="fas fa-chalkboard-user"></i><span>create module</span></a>
+      <a href="/delete"><i class="fas fa-chalkboard-user"></i><span>delete course</span></a>
       <a href="/contact"><i class="fas fa-headset"></i><span>contact us</span></a>
    </nav>
 
