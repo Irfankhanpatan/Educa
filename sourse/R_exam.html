@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    *, *::before, *::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --hue-neutral: 200;
+  --hue-wrong: 0;
+  --hue-correct: 145;
+}
+
+body {
+  --hue: var(--hue-neutral);
+  padding: 0;
+  margin: 0;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background-color: hsl(var(--hue), 100%, 20%);
+}
+
+body.correct {
+  --hue: var(--hue-correct);
+}
+
+body.wrong {
+  --hue: var(--hue-wrong);
+}
+
+.container {
+  width: 800px;
+  max-width: 80%;
+  background-color: white;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 0 10px 2px;
+}
+
+.btn-grid {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.btn {
+  --hue: var(--hue-neutral);
+  border: 1px solid hsl(var(--hue), 100%, 30%);
+  background-color: hsl(var(--hue), 100%, 50%);
+  border-radius: 5px;
+  padding: 5px 10px;
+  color: white;
+  outline: none;
+}
+
+.btn:hover {
+  border-color: black;
+}
+
+.btn.correct {
+  --hue: var(--hue-correct);
+  color: black;
+}
+
+.btn.wrong {
+  --hue: var(--hue-wrong);
+}
+
+.start-btn, .next-btn {
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 10px 20px;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hide {
+  display: none;
+}
+
+
+
+
+
+
+
+
+
+
+/* Background Styles Only */
+
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+
+html {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #DFDFDF;
+}
+
+.side-links {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.side-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  margin-bottom: 10px;
+  color: white;
+  width: 180px;
+  padding: 10px 0;
+  border-radius: 10px;
+}
+
+.side-link-youtube {
+  background-color: red;
+}
+
+.side-link-twitter {
+  background-color: #1DA1F2;
+}
+
+.side-link-github {
+  background-color: #6e5494;
+}
+
+.side-link-text {
+  margin-left: 10px;
+  font-size: 18px;
+}
+
+.side-link-icon {
+  color: white;
+  font-size: 30px;
+}
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div id="question-container" class="hide">
+      <div id="question">Question</div>
+      <div id="answer-buttons" class="btn-grid">
+        <button class="btn">Answer 1</button>
+        <button class="btn">Answer 2</button>
+        <button class="btn">Answer 3</button>
+        <button class="btn">Answer 4</button>
+      </div>
+    </div>
+    <div class="controls">
+      <button id="start-btn" class="start-btn btn">Start</button>
+      <button id="next-btn" class="next-btn btn hide">Next</button>
+    </div>
+  </div>
+        
+       
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <!-- Side Links Only -->
+        <div class="side-links">
+          <a href="#" target="_blank" class="side-link side-link-youtube">
+            <i class="fab fa-youtube-square side-link-icon"></i>
+            <span class="side-link-text">View Tutorial</span>
+          </a>
+          <a href="#" target="_blank" class="side-link side-link-github side-link-icon">
+            <i class="fab fa-github-square"></i>
+            <span class="side-link-text">View GitHub</span>
+          </a>
+          <a href="#" target="_blank" class="side-link side-link-twitter">
+            <i class="fab fa-twitter-square side-link-icon"></i>
+            <span class="side-link-text">View Twitter</span>
+          </a>
+        </div>
+
+        <script>
+          const startButton = document.getElementById('start-btn')
+const nextButton = document.getElementById('next-btn')
+const questionContainerElement = document.getElementById('question-container')
+const questionElement = document.getElementById('question')
+const answerButtonsElement = document.getElementById('answer-buttons')
+
+let shuffledQuestions, currentQuestionIndex
+
+startButton.addEventListener('click', startGame)
+nextButton.addEventListener('click', () => {
+  currentQuestionIndex++
+  setNextQuestion()
+})
+
+function startGame() {
+  startButton.classList.add('hide')
+  shuffledQuestions = questions.sort(() => Math.random() - .5)
+  currentQuestionIndex = 0
+  questionContainerElement.classList.remove('hide')
+  setNextQuestion()
+}
+
+function setNextQuestion() {
+  resetState()
+  showQuestion(shuffledQuestions[currentQuestionIndex])
+}
+
+function showQuestion(question) {
+  questionElement.innerText = question.question
+  question.answers.forEach(answer => {
+    const button = document.createElement('button')
+    button.innerText = answer.text
+    button.classList.add('btn')
+    if (answer.correct) {
+      button.dataset.correct = answer.correct
+    }
+    button.addEventListener('click', selectAnswer)
+    answerButtonsElement.appendChild(button)
+  })
+}
+
+function resetState() {
+  clearStatusClass(document.body)
+  nextButton.classList.add('hide')
+  while (answerButtonsElement.firstChild) {
+    answerButtonsElement.removeChild(answerButtonsElement.firstChild)
+  }
+}
+
+function selectAnswer(e) {
+  const selectedButton = e.target
+  const correct = selectedButton.dataset.correct
+  setStatusClass(document.body, correct)
+  Array.from(answerButtonsElement.children).forEach(button => {
+    setStatusClass(button, button.dataset.correct)
+  })
+  
+  if (shuffledQuestions.length > currentQuestionIndex + 1) {
+    nextButton.classList.remove('hide')
+  } else {
+    startButton.innerText = 'Restart'
+    startButton.classList.remove('hide')
+  }
+}
+
+function setStatusClass(element, correct) {
+  clearStatusClass(element)
+  if (correct) {
+    element.classList.add('correct')
+  } else {
+    element.classList.add('wrong')
+  }
+}
+
+function clearStatusClass(element) {
+  element.classList.remove('correct')
+  element.classList.remove('wrong')
+}
+
+
+const questions = [
+    {
+        question: 'What is a regular language?',
+        answers: [
+            { text: 'A language that can be recognized by a finite automaton', correct: true },
+            { text: 'A language that contains only regular expressions', correct: false },
+            { text: 'A language that can be recognized by a context-free grammar', correct: false },
+            { text: 'A language that contains only regular expressions and context-free grammars', correct: false }
+        ]
+    },
+    {
+        question: 'What is a regular expression?',
+        answers: [
+            { text: 'A mathematical notation to describe patterns in strings', correct: true },
+            { text: 'A type of programming language used for web development', correct: false },
+            { text: 'A notation used in formal language theory to describe regular languages', correct: true },
+            { text: 'A type of data structure used in computer science', correct: false }
+        ]
+    },
+    {
+        question: 'What is the difference between a regular language and a context-free language?',
+        answers: [
+            { text: 'A regular language can be recognized by a finite automaton, while a context-free language cannot', correct: true },
+            { text: 'A regular language contains only regular expressions, while a context-free language contains only context-free grammars', correct: false },
+            { text: 'A regular language can be recognized by a context-free grammar, while a context-free language cannot', correct: false },
+            { text: 'There is no difference between a regular language and a context-free language', correct: false }
+        ]
+    },
+    {
+        question: 'What is a deterministic finite automaton (DFA)?',
+        answers: [
+            { text: 'A finite automaton with a unique next state for each input symbol and current state', correct: true },
+            { text: 'A finite automaton that can have multiple possible next states for a given input symbol and current state', correct: false },
+            { text: 'A finite automaton that can recognize more languages than a nondeterministic finite automaton', correct: false },
+            { text: 'A finite automaton with an infinite number of states', correct: false }
+        ]
+    },
+    {
+        question: 'What is a nondeterministic finite automaton (NFA)?',
+        answers: [
+            { text: 'A finite automaton that can have multiple possible next states for a given input symbol and current state', correct: true },
+            { text: 'A finite automaton with a unique next state for each input symbol and current state', correct: false },
+            { text: 'A finite automaton with an infinite number of states', correct: false },
+            { text: 'A finite automaton that can recognize more languages than a deterministic finite automaton', correct: false }
+        ]
+    },
+    {
+        question: 'What is the Pumping Lemma?',
+        answers: [
+            { text: 'A lemma used to prove that certain languages are not regular', correct: true },
+            { text: 'A lemma used to describe the process of pumping gas into a vehicle', correct: false },
+            { text: 'A lemma used to describe the process of pumping water from one location to another', correct: false },
+            { text: 'A lemma used to prove that certain languages are regular', correct: false }
+        ]
+    },
+    {
+        question: 'What is the closure property of regular languages?',
+        answers: [
+            { text: 'The property that states that the concatenation, union, and Kleene star of regular languages are also regular languages', correct: true },
+            { text: 'The property that states that regular languages are closed under intersection', correct: false },
+            { text: 'The property that states that regular languages are closed under complementation', correct: false },
+            { text: 'The property that states that regular languages are closed under division', correct: false }
+        ]
+    },
+    {
+        question: 'What is the Kleene star?',
+        answers: [
+            { text: 'A unary operation on strings that represents repetition of zero or more occurrences of the string', correct: true },
+            { text: 'A binary operation on sets that represents the intersection of the sets', correct: false },
+            { text: 'A unary operation on strings that represents repetition of one or more occurrences of the string', correct: false },
+            { text: 'A binary operation on strings that represents the concatenation of the strings', correct: false }
+        ]
+    },
+    {
+        question: 'What is the difference between regular expressions and regular grammars?',
+        answers: [
+            { text: 'Regular expressions are more expressive than regular grammars', correct: true },
+            { text: 'Regular expressions are a notation for describing regular languages, while regular grammars are a formalism for generating regular languages', correct: false },
+            { text: 'Regular expressions can only describe regular languages with finite automata, while regular grammars can describe regular languages with context-free grammars', correct: false },
+            { text: 'There is no difference between regular expressions and regular grammars', correct: false }
+        ]
+    },
+    {
+        question: 'What is the Pumping Lemma used for?',
+        answers: [
+            { text: 'To prove that certain languages are regular', correct: false },
+            { text: 'To prove that certain languages are context-free', correct: false },
+            { text: 'To prove that certain languages are not regular', correct: true },
+            { text: 'To prove that certain languages are not context-free', correct: false }
+        ]
+    }
+]
+
+
+        </script>
+</body>
+</html>
